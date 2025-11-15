@@ -1,0 +1,322 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #1f3b4d;
+  --background: #f5f7fa;
+  --accent: #2e8bc0;
+  --danger: #d9534f;
+  --success: #5cb85c;
+  --text: #2e2e2e;
+}
+
+body {
+  color: var(--text);
+  background-color: var(--background);
+}
+
+/* RTL support for Arabic */
+[dir="rtl"] {
+  text-align: right;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 210 43% 21%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 203 63% 47%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 43% 21%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 203 63% 47%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom animations and hover effects */
+@layer components {
+  /* Primary action buttons with enhanced animations */
+  .btn-primary-animated {
+    @apply relative overflow-hidden transition-all duration-300 ease-in-out;
+    @apply transform hover:scale-105 hover:shadow-lg active:scale-95;
+    @apply bg-gradient-to-r from-blue-600 to-blue-800;
+    @apply hover:from-blue-800 hover:to-blue-600;
+  }
+
+  .btn-primary-animated::before {
+    content: "";
+    @apply absolute inset-0 bg-white opacity-0 transition-opacity duration-300;
+    @apply hover:opacity-10;
+  }
+
+  .btn-primary-animated:hover {
+    @apply shadow-xl shadow-blue-500/30;
+  }
+
+  /* Secondary buttons with subtle animations */
+  .btn-secondary-animated {
+    @apply relative overflow-hidden transition-all duration-200 ease-in-out;
+    @apply transform hover:scale-105 hover:shadow-md active:scale-95;
+    @apply border-2 border-transparent hover:border-blue-200;
+    @apply bg-white hover:bg-gradient-to-r hover:from-white hover:to-blue-50;
+  }
+
+  .btn-secondary-animated::after {
+    content: "";
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300;
+  }
+
+  .btn-secondary-animated:hover::after {
+    @apply w-full;
+  }
+
+  /* Dossier action buttons with special effects */
+  .btn-dossier-action {
+    @apply relative overflow-hidden transition-all duration-300 ease-out;
+    @apply transform hover:scale-105 hover:shadow-lg active:scale-95;
+    @apply bg-white border border-gray-200 hover:border-blue-300;
+    @apply hover:bg-gradient-to-br hover:from-white hover:to-blue-50;
+    @apply cursor-pointer;
+  }
+
+  .btn-dossier-action::before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent;
+    @apply opacity-0 transform -translate-x-full transition-all duration-500;
+  }
+
+  .btn-dossier-action:hover::before {
+    @apply opacity-30 translate-x-full;
+  }
+
+  .btn-dossier-action:hover {
+    @apply shadow-xl shadow-blue-500/15;
+  }
+
+  .btn-dossier-action .icon {
+    @apply transition-all duration-300;
+  }
+
+  /* View/Details button special animation */
+  .btn-view-details {
+    @apply btn-dossier-action;
+    @apply hover:bg-gradient-to-br hover:from-blue-50 hover:to-blue-100;
+  }
+
+  .btn-view-details:hover {
+    @apply shadow-xl shadow-blue-500/20;
+  }
+
+  /* Download button special animation */
+  .btn-download {
+    @apply btn-dossier-action;
+    @apply hover:bg-gradient-to-br hover:from-green-50 hover:to-green-100;
+  }
+
+  .btn-download:hover {
+    @apply shadow-xl shadow-green-500/20;
+  }
+
+  .btn-download:disabled {
+    @apply opacity-50 cursor-not-allowed transform-none shadow-none;
+    @apply hover:bg-white hover:border-gray-200 hover:scale-100;
+  }
+
+  /* Preview button special animation */
+  .btn-preview {
+    @apply btn-dossier-action;
+    @apply hover:bg-gradient-to-br hover:from-purple-50 hover:to-purple-100;
+  }
+
+  .btn-preview:hover {
+    @apply shadow-xl shadow-purple-500/20;
+  }
+
+  /* Edit button special animation */
+  .btn-edit {
+    @apply btn-dossier-action;
+    @apply hover:bg-gradient-to-br hover:from-orange-50 hover:to-orange-100;
+  }
+
+  .btn-edit:hover {
+    @apply shadow-xl shadow-orange-500/20;
+  }
+
+  /* Delete button special animation */
+  .btn-delete {
+    @apply btn-dossier-action;
+    @apply hover:bg-gradient-to-br hover:from-red-50 hover:to-red-100;
+    @apply hover:border-red-200;
+  }
+
+  .btn-delete:hover {
+    @apply shadow-xl shadow-red-500/20;
+  }
+
+  /* Upload button animation */
+  .btn-upload {
+    @apply relative overflow-hidden transition-all duration-300;
+    @apply transform hover:scale-105 active:scale-95;
+    @apply border-2 border-dashed border-gray-300 hover:border-blue-500;
+    @apply bg-gray-50 hover:bg-blue-50;
+    @apply cursor-pointer;
+  }
+
+  .btn-upload::after {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-r from-blue-100 to-transparent;
+    @apply opacity-0 transition-opacity duration-300;
+  }
+
+  .btn-upload:hover::after {
+    @apply opacity-100;
+  }
+
+  /* Card hover effects */
+  .card-interactive {
+    @apply transition-all duration-300 ease-out;
+    @apply hover:shadow-lg hover:shadow-gray-200/50;
+    @apply transform hover:-translate-y-1;
+  }
+
+  /* Table row hover effects */
+  .table-row-interactive {
+    @apply transition-all duration-200 ease-in-out;
+    @apply hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent;
+    @apply hover:shadow-sm;
+  }
+
+  /* Badge animations */
+  .badge-animated {
+    @apply transition-all duration-200 ease-in-out;
+    @apply hover:scale-105 hover:shadow-sm;
+  }
+
+  .badge-status-new {
+    @apply badge-animated bg-blue-100 text-blue-800 hover:bg-blue-200;
+  }
+
+  .badge-status-progress {
+    @apply badge-animated bg-yellow-100 text-yellow-800 hover:bg-yellow-200;
+  }
+
+  .badge-status-ended {
+    @apply badge-animated bg-green-100 text-green-800 hover:bg-green-200;
+  }
+
+  /* Loading spinner animation */
+  .spinner {
+    @apply animate-spin rounded-full border-2 border-gray-300 border-t-blue-600;
+  }
+
+  /* Pulse animation for loading states */
+  .pulse-loading {
+    @apply animate-pulse bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200;
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* Enhanced focus styles for accessibility */
+  .focus-enhanced:focus {
+    @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+    @apply shadow-lg shadow-blue-500/20;
+  }
+}
+
+/* Responsive animations - reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-blue-800;
+}
